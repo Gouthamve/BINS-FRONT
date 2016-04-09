@@ -4,7 +4,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import Player from 'components/Player'
 
 const NavbarInstance = () => {
-  return <Navbar fluid fixedTop className='vertical-align'>
+  return <Navbar fluid fixedTop inverse className='vertical-align'>
     <Navbar.Header>
       <Navbar.Brand>
         <a href="#">BINS</a>

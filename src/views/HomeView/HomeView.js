@@ -2,10 +2,13 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { increment, doubleAsync } from '../../redux/modules/counter'
+import { Grid,Row,Col } from 'react-bootstrap';
 
 import Navbar from 'components/Navbar'
 import Player from 'components/Player'
-
+import Trending from 'components/Trending'
+import SignUpForm from 'components/SignUpForm'
+import Tracks from 'components/Tracks'
 // We can use Flow (http://flowtype.org/) to type our component's props
 // and state. For convenience we've included both regular propTypes and
 // Flow types, but if you want to try just using Flow you'll want to
@@ -37,6 +40,32 @@ export class HomeView extends React.Component<void, Props, void> {
         <br />
         <br />
         <h1>Welcome to BINS</h1>
+        <div className="container-fluid">
+          <Row>
+            <Col xs={12} md={8}>
+              <Trending />
+            </Col>
+            <Col xs={12} md={4}>
+              <SignUpForm />
+            </Col>
+          </Row>
+        </div>
+        <div className="container-fluid">
+          <Row>
+            <Col xs={12}>
+            <h1>HOT TRACKS</h1>
+              <Tracks />
+            </Col>
+          </Row>
+        </div>
+        <div className="container-fluid">
+          <Row>
+            <Col xs={12}>
+            <h1>TOP PLAYLISTS</h1>
+              <Tracks />
+            </Col>
+          </Row>
+        </div>
       </div>
     )
   }
