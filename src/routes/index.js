@@ -14,3 +14,6 @@ export default (store) => (
     <IndexRoute component={HomeView} />
   </Route>
 )
+
+// index
+// home
