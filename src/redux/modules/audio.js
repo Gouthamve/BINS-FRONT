@@ -12,10 +12,10 @@ export const UPDATE_TIME = 'UPDATE_TIME'
 
 // action makers
 
-export function setCurrent(url) {
+export function setCurrent(song) {
   return {
     type: SET_CURRENT,
-    url: url
+    song: song
   }
 }
 
@@ -68,30 +68,55 @@ export const actions = {
   updateTime
 }
 
-export default function audioReducer(state = {current: {url: 'https://s3-ap-southeast-1.amazonaws.com/nvision/h.mp3', idx: 0, percentDone: 0}, playing: false, playlist: ['https://s3-ap-southeast-1.amazonaws.com/nvision/h.mp3', 'https://s3-ap-southeast-1.amazonaws.com/nvision/i.mp3'], volume: 0.5, changeTime: false}, action) {
+const initialState = {
+  current: {
+    url: 'https://s3-ap-southeast-1.amazonaws.com/nvision/h.mp3',
+    idx: 0,
+    percentDone: 0,
+    name: 'A Hymn for the Weekend',
+    artist: 'Coldplay',
+    album: 'A Head full of dreams'
+  },
+  playing: false,
+  playlist: [{
+    url: 'https://s3-ap-southeast-1.amazonaws.com/nvision/h.mp3',
+    name: 'A Hymn for the Weekend',
+    artist: 'Coldplay',
+    album: 'A Head full of dreams'
+  }, {
+    url: 'https://s3-ap-southeast-1.amazonaws.com/nvision/i.mp3',
+    name: 'Demons',
+    artist: 'Imagine Dragons',
+    album: 'Night Visions'
+  }],
+  volume: 0.75,
+  changeTime: false
+}
+
+export default function audioReducer(state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT:
-      return Object.assign({}, state, {current: {url: action.url}});
+      return Object.assign({}, state, {current: action.song});
       break;
     case PLAY_CURRENT:
-      let currentURL = state.current.url;
-      if (!currentURL) {
-        currentURL = state.playlist[0];
+      let currentSong = state.current;
+      if (!currentSong) {
+        currentSong = state.playlist[0];
       }
-      return Object.assign({}, state, {playing: true}, {current: {url: currentURL, idx: state.current.idx}});
+      return Object.assign({}, state, {playing: true}, {current: {...currentSong, idx: state.current.idx}});
       break;
     case PAUSE_CURRENT:
       return Object.assign({}, state, {playing: false});
       break;
     case PLAY_NEXT:
       if (state.playlist.length > state.current.idx + 1) {
-        return Object.assign({}, state, {playing: true}, {current: {url: state.playlist[state.current.idx+1], idx: state.current.idx + 1}});
+        return Object.assign({}, state, {playing: true}, {current: {...state.playlist[state.current.idx+1], idx: state.current.idx + 1}});
       }
       return Object.assign({}, state, {playing: false}, {current: {url: '', idx: 0}});
       break;
     case PLAY_PREV:
       if (state.current.idx - 1 >= 0) {
-        return Object.assign({}, state, {playing: true}, {current: {url: state.playlist[state.current.idx-1], idx: state.current.idx - 1}});
+        return Object.assign({}, state, {playing: true}, {current: {...state.playlist[state.current.idx-1], idx: state.current.idx - 1}});
       }
       return Object.assign({}, state, {playing: false}, {current: {url: '', idx: 0}});
       break;

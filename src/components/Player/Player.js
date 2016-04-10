@@ -74,12 +74,12 @@ class Player extends React.Component {
                 <img width='100%' src='http://pre05.deviantart.net/b5d8/th/pre/i/2013/361/7/5/lights_album_art_by_bonvallet-d6ylvvi.png' />
               </div>
               <div className='col-xs-10'>
-                <div className='container-fluid'>
+                <div className={`container-fluid ${styles.songDetails}`}>
                   <div className='row'>
-                    <p>LOL</p>
+                    <p>{this.props.audio.current.name}</p>
                   </div>
                   <div>
-                    <p>Coldplay - A Head full of Dreams</p>
+                    <p>{this.props.audio.current.artist} - {this.props.audio.current.album}</p>
                   </div>
                   <RCslider value={this.props.audio.current.percentDone || 0} onChange={this.props.updateTime} tipFormatter={null} />
                 </div>
