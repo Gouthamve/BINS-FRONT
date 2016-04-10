@@ -3,7 +3,7 @@ import { Jumbotron, Button, Image, Grid, Row, Col } from 'react-bootstrap'
 
 import alart from 'img/coverart1.jpg'
 
-const Header = () => {
+const Header = ({onPlayNow}) => {
   return <Jumbotron>
     <Grid fluid>
       <Row>
@@ -21,7 +21,7 @@ const Header = () => {
           <br />
           <Row>
             <Col xs={12}>
-              <Button primary>Play Now</Button>
+              <Button bsStyle='primary' onClick={onPlayNow}>Play Now</Button>
             </Col>
           </Row>
         </Col>
